@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/1510e22962.js" crossorigin="anonymous"></script>
+    <title>AlphaBuddies</title>
+    <link rel="stylesheet" href="style/output.css">
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            overflow: hidden;
+        }
+
+        nav {
+            background-color: rgba(25, 1, 43, 0.8);
+            backdrop-filter: blur(10px);
+        }
+
+        .container {
+            padding: 20px;
+        }
+
+        /* Define hover effect for cards */
+        .card:hover:after {
+            content: attr(aria-label);
+            position: absolute;
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 10px;
+            border-radius: 5px;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1;
+            /* Text-to-speech CSS */
+            speak: auto;
+            white-space: nowrap;
+        }
+    </style>
+</head>
+
+<body>
+    <nav class="w-full morphnav bg-[#C78FF3] p-4 h-[80px]">
+        <div class="flex flex-col mx-auto">
+            <div class=" flex py-2 justify-between my-auto">
+                <p><i class="fa-solid fa-arrow-down-a-z"></i></p>
+                <h1 class="font-bold text-3xl text-black mt-4 text-left ">AlphaBuddies</h1>
+                <div>
+                    <select id="languageSelect" class="bg-white rounded border border-gray-300 py-2 px-4">
+                        <option value="en">English</option>
+                        <option value="es">Spanish</option>
+                        <option value="hi">Hindi</option>
+                        <option value="bn">Bengali</option>
+                    </select>
+                </div>
+                <a class="mb-4" href="settings.html">
+                    <i class="fa-solid fa-gear fa-xl"></i>
+                </a>
+            </div>
+        </div>
+    </nav>
+    <div class="container morph mt-10  mx-auto">
+        <p class="m-5 font-bold text-4xl mx-auto text-center  text-zinc-600 flex justify-center items-center">
+            <img src="src/hello.gif" alt="Small Image" style="width: 80px; height: 80px; margin-right: 5px;" />
+        </p>
+        <div class="grid  grid-rows-2 gap-4 w-[90%] mx-auto">
+            <div class="grid grid-cols-2  gap-4">
+                <a href="draw.html" id="listenLearn">
+                    <!-- Define card with aria-label for spoken content -->
+                    <div class="bg-[#4EE292] morph2 p-4 rounded-lg text-black w-[100%] h-[200px] card"
+                        aria-label="Drawing Test">
+                        <h2 class="text-3xl font-semibold m-5">Drawing Test</h2>
+                        <div class="flex flex-row justify-end my-auto">
+                            <i class="fa-solid fa-2xl fa-spell-check"></i>
+                        </div>
+                    </div>
+                </a>
+                <a href="Test-Letters/test.html" id="takeTest">
+                    <!-- Define card with aria-label for spoken content -->
+                    <div class="bg-[#FFD233] morph3 p-4 rounded-lg text-black w-[100%] h-[200px] card"
+                        aria-label="Listening Test">
+                        <h2 class="text-3xl font-semibold m-5">Listening Test</h2>
+                        <div class="flex flex-row justify-end my-auto">
+                            <i class="fa-solid fa-2xl fa-headphones"></i>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+    <script src="script/textToSpeech.js"></script>
+    <script>
+        // Function to execute text-to-speech
+        function speakText(text) {
+            if ('speechSynthesis' in window) {
+        // Create a new instance of SpeechSynthesisUtterance
+        var utterance = new SpeechSynthesisUtterance(text);
+        
+        // Speak the text
+        window.speechSynthesis.speak(utterance);
+    } else {
+        // Browser doesn't support speech synthesis
+        console.error('Speech synthesis not supported');
+    }
+        }
+
+        // Text to speak when the page loads
+        const initialText = "Click on the left drawing test button to give draw alphabets and give test. Click on the right listening test button to listen the alphabet and guess the alphabet";
+        speakText(initialText);
+    </script>
+</body>
+
+</html>

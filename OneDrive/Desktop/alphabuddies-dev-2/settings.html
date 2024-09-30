@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script
+      src="https://kit.fontawesome.com/1510e22962.js"
+      crossorigin="anonymous"
+    ></script>
+    <title>Learnify Alpha</title>
+    <link rel="stylesheet" href="./src/output.css" />
+
+    <style>
+      html,
+      body {
+        height: 100%; /* Ensure the body takes up the full height of the viewport */
+        margin: 0; /* Remove default margin */
+        overflow-y: auto; /* Enable vertical scrolling */
+      }
+      .morph {
+        background: rgba(199, 143, 243, 0.25);
+        box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+        backdrop-filter: blur(7.5px);
+        -webkit-backdrop-filter: blur(7.5px);
+        border-radius: 10px;
+      }
+      .morphnav {
+        background: rgba(145, 53, 231, 0.45);
+        box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+        backdrop-filter: blur(1.5px);
+        -webkit-backdrop-filter: blur(1.5px);
+      }
+      .morph1 {
+        background: rgba(205, 36, 217, 0.2);
+        box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+        backdrop-filter: blur(6.5px);
+        -webkit-backdrop-filter: blur(6.5px);
+        border-radius: 10px;
+      }
+      .morph2 {
+        background: rgba(140, 244, 29, 0.45);
+        box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+        backdrop-filter: blur(1.5px);
+        -webkit-backdrop-filter: blur(1.5px);
+        border-radius: 10px;
+      }
+      .morph3 {
+        background: rgba(233, 214, 5, 0.45);
+        box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+        backdrop-filter: blur(1.5px);
+        -webkit-backdrop-filter: blur(1.5px);
+        border-radius: 10px;
+      }
+      .morph1:hover {
+        filter: drop-shadow(
+          0 0 8px rgba(194, 47, 175, 0.9)
+        ); /* Adjust the values as needed */
+        transition: filter 0.3s ease-in-out; /* Add a smooth transition effect */
+      }
+      .morph2:hover {
+        filter: drop-shadow(
+          0 0 8px rgba(47, 194, 69, 0.9)
+        ); /* Adjust the values as needed */
+        transition: filter 0.3s ease-in-out; /* Add a smooth transition effect */
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="w-full morphnav bg-[#C78FF3] p-4 h-[80px]">
+      <div class="flex flex-col mx-auto">
+        <div class="flex py-2 justify-between my-auto">
+          <h1 class="font-bold text-3xl text-black mt-4 text-left">
+            AlphaBuddies
+          </h1>
+          <a class="mb-4" href="/home.html">
+            <i class="fa-solid fa-house fa-xl"></i>
+          </a>
+        </div>
+      </div>
+    </nav>
+    <div class="container mx-auto my-10">
+      <div class="grid grid-rows-2 gap-4 w-[90%] mx-auto">
+        <div
+          class="bg-[#C78FF3] p-4 rounded-lg morph1 text-black w-[100%] h-[200px] relative"
+        >
+          <button class="text-3xl font-semibold m-5" onclick="toggleSlider()">
+            Adjust Sound
+          </button>
+          <div class="flex flex-row justify-end my-auto">
+            <i class="fa-solid fa-music fa-2xl" style="color: #ffffff"></i>
+          </div>
+          <!-- Slider container -->
+          <div class="slider-container" id="sliderContainer">
+            <input
+              type="range"
+              min="0"
+              max="100"
+              value="50"
+              class="slider"
+              id="myRange"
+            />
+          </div>
+        </div>
+
+        <script>
+          function toggleSlider() {
+            var sliderContainer = document.getElementById("sliderContainer");
+            if (
+              sliderContainer.style.display === "none" ||
+              sliderContainer.style.display === ""
+            ) {
+              sliderContainer.style.display = "block";
+            } else {
+              sliderContainer.style.display = "none";
+            }
+          }
+        </script>
+        <a href="theme.html">
+          <div
+            class="bg-[#4EE292] p-4 rounded-lg morph2 text-black w-[100%] h-[200px]"
+          >
+            <button class="text-3xl font-semibold m-5">Select Theme</button>
+            <div class="flex flex-row justify-end my-auto">
+              <i class="fa-solid fa-2xl fa-wand-magic-sparkles"></i>
+            </div>
+          </div>
+        </a>
+        <a href="index.html">
+          <div
+            class="bg-[#C78FF3] p-4 rounded-lg morph2 text-black w-[100%] h-[200px]"
+          >
+            <button class="text-3xl font-semibold m-5">Logout</button>
+            <div class="flex flex-row justify-end my-auto">
+              <i
+                class="fa-solid fa-2xl fa-arrow-right-from-bracket"
+                style="color: #ffffff"
+              ></i>
+            </div>
+          </div>
+        </a>
+      </div>
+    </div>
+  </body>
+</html>

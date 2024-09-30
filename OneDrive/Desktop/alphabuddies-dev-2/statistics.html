@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Meta tags, title, stylesheets, etc. -->
+  <script src="https://kit.fontawesome.com/1510e22962.js" crossorigin="anonymous"></script>
+  <title>Learnify Alpha</title>
+  <link rel="stylesheet" href="style/output.css">
+  <link rel="stylesheet" href="style/style4.css" />
+<!-- Meta tags, title, stylesheets, etc. -->
+<style>
+  .morphnav {
+      background: rgba(145, 53, 231, 0.45);
+      box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+      backdrop-filter: blur(1.5px);
+      -webkit-backdrop-filter: blur(1.5px);
+  }
+  
+  .morph1 {
+      background: rgba(205, 36, 217, 0.2);
+      box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+      backdrop-filter: blur(6.5px);
+      -webkit-backdrop-filter: blur(6.5px);
+      border-radius: 10px;
+      height: 60px; /* Adjust the height as needed */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-decoration: none; /* Remove default underline */
+      width: 100px;
+      height: 100px;
+      margin-left: -11px;
+      margin: 4.5px;
+      margin-bottom: 1px;
+      margin-top: 60px;
+      transition: transform 0.2s ease-in-out;
+
+
+  }
+
+  .mx-auto {
+      margin-left: 6px;
+      margin-right: 6px;
+  }
+
+  /* Add the following styles for the glow effect */
+.morph1:hover {
+filter: drop-shadow(0 0 8px rgba(230, 7, 200, 0.9)); /* Adjust the values as needed */
+transform: scale(1.1); /* Increase the size by 10% on hover */
+transition: transform 0.2s ease-in-out; /* Add a smooth transition effect */
+}
+.morph1:not(:hover) {
+transform: scale(1); /* Revert to original size when not hovered */
+}
+.text-lg {
+font-size: 34px; /* Adjust font size as needed */
+}
+
+
+  html,
+  body {
+      height: 100%; /* Ensure the body takes up the full height of the viewport */
+      margin: 0; /* Remove default margin */
+      overflow-y: auto; /* Enable vertical scrolling */
+  }
+
+  .grid {
+      display: grid;
+      place-items: center;
+      grid-template-columns: repeat(13, 1fr); /* 13 columns for the first 13 alphabets */
+      gap: 5px; /* Adjust the gap between cards as needed */
+
+
+
+  }
+  .emo{
+    width:600px;
+    height: 600px;
+    font-size: 200px;
+  font-weight: bold;
+  font-family: 'Baloo Thambi 2', cursive;
+  text-align: center;
+  color: #054a68;
+  margin: 20px 0;
+  }
+  .paras{
+    text-align: center;
+    text-decoration: solid;
+    font-size:20px;
+    font-weight: bold;
+  }
+  .paras p:last-of-type{
+    font-size: 25px;
+  }
+  .imggg{
+    width: 340px;
+    height: 300px;
+    padding-bottom: 30px;
+    
+    margin-left: 80px;
+  }
+
+</style>
+</head>
+<body>
+  <nav class="w-full morphnav bg-[#C78FF3] p-4 h-[80px]">
+    <div class="flex flex-col mx-auto">
+        <div class="flex py-2 justify-between my-auto">
+          <a class="mb-4" href="alphabets.html">
+            <i class="fa-solid fa-2xl fa-angles-left"></i>
+        </a>
+            <h1 class="font-bold text-3xl text-black mt-4 text-left">AlphaBuddies</h1>
+            <a class="mb-4" href="home.html">
+                <i class="fa-solid fa-house fa-xl"></i>
+            </a>
+        </div>
+    </div>
+</nav>
+<div class="row"> 
+  
+  <div class="card1">
+    
+    <h3>Report Card</h3>
+    <!-- diplay the correct and incorrect answers -->
+    <p class="paras"><strong>Correct Answers:</strong> <span id="correctCount"></span></p>
+    <p class="paras"><strong>Incorrect Answers:</strong> <span id="incorrectCount"></span></p>
+    <p class="paras"><strong>Accuracy: </strong> </p>
+    <img class="imggg" src="src/aeroplane.gif" alt="Your Image">
+  </div>
+  
+</div>
+
+<script>
+  // Retrieve counts from localStorage and display
+  var correctCount = localStorage.getItem("correct") || 0;
+  var incorrectCount = localStorage.getItem("incorrect") || 0;
+  var total = parseInt(correctCount) + parseInt(incorrectCount);
+  document.getElementById("correctCount").innerText = correctCount;
+  document.getElementById("incorrectCount").innerText = incorrectCount;
+  document.querySelector("p:last-of-type").innerText += ((correctCount / total) * 100).toFixed(2) + "%";
+
+  // print in separate line the message based on accuracy
+  var accuracyMessage = "";
+  if (total === 0) {
+    accuracyMessage = "You need to practice more.";
+  } else if ((correctCount / total) * 100 < 20) {
+    accuracyMessage = "You need to practice more.";
+  } else if ((correctCount / total) * 100 < 50) {
+    accuracyMessage = "You are getting there...";
+  } else if ((correctCount / total) * 100 < 80) {
+    accuracyMessage = "Good job!!!";
+  } else if ((correctCount / total) * 100 < 100) {
+    accuracyMessage = "Excellent work!!!";
+  } else {
+    accuracyMessage = "Perfect score!!!";
+  }
+
+  // Update the message in the HTML
+  var accuracyElement = document.querySelector("p:last-of-type");
+  accuracyElement.innerText += "\n" + accuracyMessage;
+
+  // Change the GIF based on the accuracy message
+  var imgSrc = "";
+  switch (accuracyMessage) {
+    case "You need to practice more.":
+      imgSrc = "src/work.gif";
+      break;
+    case "You are getting there...":
+      imgSrc = "src/getting.gif";
+      break;
+    case "Good job!!!":
+      imgSrc = "src/good.gif";
+      break;
+    case "Excellent work!!!":
+      imgSrc = "src/excellent_work.gif";
+      break;
+    case "Perfect score!!!":
+      imgSrc = "src/perfect.gif";
+      break;
+    default:
+      imgSrc = "src/default.gif"; // Provide a default GIF if no match is found
+      break;
+  }
+
+  // Set the new src attribute for the GIF
+  var imgElement = document.querySelector("img");
+  imgElement.src = imgSrc;
+</script>
+
+</body>
+</html>
+
+

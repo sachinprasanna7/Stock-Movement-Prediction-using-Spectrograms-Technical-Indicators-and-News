@@ -1,0 +1,220 @@
+<html>
+  <head>
+      <title>Learnify Alpha</title>
+      <link rel="icon" href="src/favicon.png">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+      <link rel="stylesheet" href="/style/style.css" />
+      <script src="https://kit.fontawesome.com/1510e22962.js" crossorigin="anonymous"></script>
+      <link rel="stylesheet" href="/style/output.css">
+
+      <style>
+        body {
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            overflow: hidden;
+        }
+
+        nav {
+            background-color: rgba(25, 1, 43, 0.8); /* Use rgba for background color with alpha transparency */
+            backdrop-filter: blur(10px); /* Apply a blur effect to create a glass effect */
+        }
+
+        .container {
+            padding: 20px;
+            
+        }
+        .morph{
+            background: rgba( 199, 143, 243, 0.25 );
+            box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+            backdrop-filter: blur( 7.5px );
+            -webkit-backdrop-filter: blur( 7.5px );
+            border-radius: 10px;
+
+        }
+        .morphnav{
+            background: rgba( 145, 53, 231, 0.45 );
+            box-shadow: 0 8px 32px 0 rgba( 31, 38, 135, 0.37 );
+            backdrop-filter: blur( 1.5px );
+            -webkit-backdrop-filter: blur( 1.5px );
+
+        }
+        .glass-morphism {
+            background-color: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(1px);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            backdrop-filter: blur(2px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            margin: 2% auto;
+            padding: 20px;
+            width: 80%; /* Adjust as needed */
+        }
+        .glass-morphism1 {
+            background-color: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(6px);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(2px);
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            margin:10px;
+            height: 110px;
+            padding: 5px;
+            width: 25%; /* Adjust as needed */
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        .glass-morphism1:hover {
+            transform: scale(1.05);
+            box-shadow: 0 12px 40px 0 rgba(31, 38, 135, 0.5);
+        }
+
+        .glass-morphism h1 {
+            font-size: 9rem;
+            font-weight: bold;
+            margin: 1rem;
+            color: #000; /* Adjust text color as needed */
+            text-align: center;
+        }
+
+        .home{
+            padding: 7px;
+            margin-right: 10px;
+            font-size: 28px;
+        }
+        .home:hover{
+            transform: scale(1.05);
+            box-shadow: 0 12px 40px 0 rgba(31, 38, 135, 0.5);
+        }
+        .textted{
+            padding-right: 25px;
+        }
+        .top{
+            margin-right: 80px;
+        }
+        .chotu{
+            width: 350px;
+            height: 230px;
+            margin-left: 580px;
+            padding-top: 10px;
+        }
+        .pic{
+            margin-top: 25px;
+            width: 2500px;
+            height: 50px;
+        }
+        .pic2{
+            margin-top: 7px;
+            width: 100px;
+            height: 70px;
+        }
+        .glassy{
+            background-color: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(6px);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(2px);
+            height: 90px;
+            margin-top: 1px;
+            margin-bottom: 10px;
+            padding: 20px;
+            width: 50%; /* Adjust as needed */
+            transition: all 0.3s ease;
+
+        }
+        .glassy:hover {
+            transform: scale(1.05);
+            box-shadow: 0 12px 40px 0 rgba(31, 38, 135, 0.5);
+        }
+
+
+    </style>
+  </head>
+
+  <body>
+    <nav class="w-full morphnav bg-[#C78FF3] p-4 h-[80px]">
+      <div class="flex flex-col mx-auto">
+          <div class=" flex py-2 justify-between my-auto">
+            <a class="mb-4" href="Listen-Letters/listenz.html"><i class="fa-solid fa-2xl fa-angles-left" style="color: black;"></i></a>
+
+              <h1 class="font-bold text-3xl text-black mt-4 text-left "><button class="top"><a href="home.html" style="color: black;"><a class="mb-4 text-black textted glass-morphism1" href="home.html"><i class="fa-solid home fs-2xl text-black fa-house"></i>Home</a>AlphaBuddies</a></button></h1>
+              <a class="mb-4" href="Listen-Letters/listenb.html" style="color: black;">
+                <i class="fa-solid fa-2xl fa-angles-right"></i>
+              </a>
+          </div>
+          
+      </div>
+  </nav>
+  <div>
+    <!-- add an image just below the nav bar -->
+    <img id="chotuImg" src="/src/chota.gif" alt="letter A" class="chotu" />
+  </div>
+  
+  <script>
+    // Function to change the image source after 13 seconds
+    setTimeout(function() {
+      document.getElementById('chotuImg').src = '/src/whisper.gif';
+    }, 13000); // 13 seconds in milliseconds
+  </script>
+    <div class="mx-auto bg-[#FFD18B] p-4 mt-5 rounded-lg text-black w-[80%] sm:w-[30%] grid grid-cols-1 glass-morphism">
+      <div class="flex flex-col justify-center items-center m-5 sm:m-10">
+          <h1 class="text-4xl font-semibold m-5">A</h1>
+      </div>
+  </div>
+
+  <div class="flex flex-row items-center mx-auto justify-center my-10">
+    <!-- Button to speak the pronunciation of the letter 'A' -->
+    <div class="mx-2 glass-morphism1 text-center" onclick="pronounceLetter('Ae')">
+        <button class="w-12"><img src="/src/alphabs.gif" alt="music" class="pic" /></button>
+    </div>
+
+    <!-- Button to speak a word starting with the letter 'A' -->
+    <div class="mx-2 glass-morphism1 text-center" onclick="pronounceWord('Apple')">
+        <button class="w-12"><img src="/src/apples.gif" alt="music" class="pic2" /></button>
+    </div>
+  </div>
+
+  <script>
+    function pronounceLetter(letter) {
+        if ('speechSynthesis' in window) {
+            var utterance = new SpeechSynthesisUtterance(letter);
+
+            utterance.voice = speechSynthesis.getVoices()[3];
+
+            speechSynthesis.speak(utterance);
+        } else {
+            alert('Speech synthesis is not supported in your browser. Please use a different browser.');
+        }
+    }
+
+    function pronounceWord(word) {
+        if ('speechSynthesis' in window) {
+            var utterance = new SpeechSynthesisUtterance(word);
+
+            utterance.voice = speechSynthesis.getVoices()[3];
+
+            speechSynthesis.speak(utterance);
+        } else {
+            alert('Speech synthesis is not supported in your browser. Please use a different browser.');
+        }
+    }
+    // when the page loads, speak the following text "click on the letter icon to listen to the pronunciation of the letter A and click on the apple icon to listen to the pronunciation of the word Apple"
+    window.onload = function() {
+        pronounceWord('click on the letter icon to listen to the pronunciation of the letter A.  click on the apple icon to listen to the pronunciation of the word Apple. You can also go home by clicking on the home button.');
+    }
+
+
+  </script>
+
+  
+
+  </body>
+</html>

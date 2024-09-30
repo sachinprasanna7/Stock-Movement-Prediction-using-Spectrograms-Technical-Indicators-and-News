@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/1510e22962.js" crossorigin="anonymous"></script>
+    <title>Learnify Alpha</title>
+    <link rel="stylesheet" href="./style/output.css">
+    <style>
+        .morphnav {
+            background: rgba(145, 53, 231, 0.45);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            backdrop-filter: blur(1.5px);
+            -webkit-backdrop-filter: blur(1.5px);
+        }
+        
+        .morph1 {
+            background: rgba(205, 36, 217, 0.2);
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+            backdrop-filter: blur(6.5px);
+            -webkit-backdrop-filter: blur(6.5px);
+            border-radius: 10px;
+            height: 60px; /* Adjust the height as needed */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-decoration: none; /* Remove default underline */
+            width: 100px;
+            height: 100px;
+            margin-left: -11px;
+            margin: 4.5px;
+            margin-bottom: 1px;
+            margin-top: 60px;
+            transition: transform 0.2s ease-in-out;
+
+
+        }
+
+        .mx-auto {
+            margin-left: 6px;
+            margin-right: 6px;
+        }
+
+        /* Add the following styles for the glow effect */
+.morph1:hover {
+    filter: drop-shadow(0 0 8px rgba(230, 7, 200, 0.9)); /* Adjust the values as needed */
+    transform: scale(1.1); /* Increase the size by 10% on hover */
+    transition: transform 0.2s ease-in-out; /* Add a smooth transition effect */
+}
+.morph1:not(:hover) {
+    transform: scale(1); /* Revert to original size when not hovered */
+}
+.text-lg {
+    font-size: 34px; /* Adjust font size as needed */
+}
+
+
+        html,
+        body {
+            height: 100%; /* Ensure the body takes up the full height of the viewport */
+            margin: 0; /* Remove default margin */
+            overflow-y: auto; /* Enable vertical scrolling */
+        }
+
+        .grid {
+            display: grid;
+            place-items: center;
+            grid-template-columns: repeat(13, 1fr); /* 13 columns for the first 13 alphabets */
+            gap: 5px; /* Adjust the gap between cards as needed */
+
+
+
+        }
+    </style>
+</head>
+<body>
+    <nav class="w-full morphnav bg-[#C78FF3] p-4 h-[80px]">
+        <div class="flex flex-col mx-auto">
+            <div class="flex py-2 justify-between my-auto">
+                <h1 class="font-bold text-3xl text-black mt-4 text-left">AlphaBuddies</h1>
+                <a class="mb-4" href="/home.html">
+                    <i class="fa-solid fa-house fa-xl"></i>
+                </a>
+            </div>
+        </div>
+    </nav>
+    <div class="container mx-auto">
+        <!-- <p class="m-5 text-4xl text-center font-bold ">Alphabets</p> -->
+
+        <!-- add a small square image -->
+        <img src="/src/wikipedia-wiki.gif" alt="Small Image" style="width: 250px; height: 230px; margin-right: 5px; margin-left: 570px;" />
+        <!-- Make cards for each alphabet -->
+        <div id="alphabetContainer" class="grid gap-4 w-[90%] mx-auto">
+            <!-- Alphabet cards will be dynamically generated here -->
+        </div>
+    </div>
+    <script>
+        // JavaScript code to dynamically generate alphabet cards
+        document.addEventListener("DOMContentLoaded", function() {
+            const alphabetContainer = document.getElementById("alphabetContainer");
+
+            // Array of alphabets
+            const alphabets = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'];
+
+            // Loop through the alphabets and create cards
+            alphabets.forEach((alphabet, index) => {
+                const card = document.createElement("a");
+                card.href = `/Write-Letters/${alphabet.toLowerCase()}1.html`;
+
+                const cardDiv = document.createElement("div");
+                cardDiv.className = "bg-[#FE93AA] p-2 morph1 rounded-xl text-black w-[100%]";
+
+                const heading = document.createElement("h2");
+                heading.className = "text-lg font-semibold margin-1 text-center"; // Added text-center class
+                heading.textContent = alphabet;
+
+                cardDiv.appendChild(heading);
+                card.appendChild(cardDiv);
+
+                alphabetContainer.appendChild(card);
+
+                // Check if it's the 14th alphabet, then change the grid for the next line
+                if (index === 12) {
+                    alphabetContainer.style.gridTemplateColumns = "repeat(13, 1fr)"; // Reset grid for the next line
+                }
+            });
+        });
+    </script>
+    <script>
+        // Function to speak a given text
+        function speak(text) {
+            // Check if SpeechSynthesis is supported
+            if ('speechSynthesis' in window) {
+                // Create a new instance of SpeechSynthesisUtterance
+                var utterance = new SpeechSynthesisUtterance(text);
+                
+                // Speak the text
+                window.speechSynthesis.speak(utterance);
+            } else {
+                // Speech synthesis not supported
+                console.error("Speech synthesis not supported.");
+            }
+        }
+
+        // Function to speak the message only once after the page loads
+        function speakOnce() {
+            // Speak the message
+            speak("Click on any of the alphabets to draw them....... or click on the home button to go back to the home page.");
+
+            // Remove the event listener to prevent speaking again
+            document.removeEventListener("DOMContentLoaded", speakOnce);
+        }
+
+        // Add event listener to speak the message once after the page loads
+        document.addEventListener("DOMContentLoaded", speakOnce);
+    </script>
+</body>
+</html>

@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Write Letter A</title>
+  <script src="https://kit.fontawesome.com/1510e22962.js" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="/style/style4.css" />
+  <link rel="stylesheet" href="/style/output.css">
+  <style>
+    canvas {
+      border: 2px solid #000;
+      cursor: crosshair;
+      margin-left: 48px;
+    }
+    /* Modal styles */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 9999;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+    }
+    .modal-content {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: white;
+      padding: 20px;
+      text-align: center;
+    }
+  
+  
+    .morphnav {
+        background: rgba(145, 53, 231, 0.45);
+        box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+        backdrop-filter: blur(1.5px);
+        -webkit-backdrop-filter: blur(1.5px);
+    }
+    
+    
+
+    .mx-auto {
+        margin-left: 6px;
+        margin-right: 6px;
+    }
+
+    /* Add the following styles for the glow effect */
+
+.text-lg {
+font-size: 34px; /* Adjust font size as needed */
+}
+
+
+    html,
+    body {
+        height: 100%; /* Ensure the body takes up the full height of the viewport */
+        margin: 0; /* Remove default margin */
+        overflow-y: auto; /* Enable vertical scrolling */
+    }
+
+    .grid {
+        display: grid;
+        place-items: center;
+        grid-template-columns: repeat(13, 1fr); /* 13 columns for the first 13 alphabets */
+        gap: 5px; /* Adjust the gap between cards as needed */
+    }
+    
+</style>
+</head>
+<body>
+  <nav class="w-full morphnav bg-[#C78FF3] p-4 h-[80px]">
+    <div class="flex flex-col mx-auto">
+        <div class="flex py-2 justify-between my-auto">
+            <h1 class="font-bold text-3xl text-black mt-4 text-left">AlphaBuddies</h1>
+            <a class="mb-4" href="/statistics.html">Statistics</a>
+            <a class="mb-4" href="/home.html">
+                <i class="fa-solid fa-house fa-xl"></i>
+            </a>
+            
+        </div>
+    </div>
+</nav>  
+
+  <div class="row">
+    <div class="card-1">
+      <p>A</p>
+    </div>
+    <div class="card-1">
+      <img src="/src/aeroplane.gif" alt="Your Image">
+    </div>
+    <div class="card1">
+      <p id="correct"></p>
+      <p id="incorrect"></p>
+      <p id="drawHereText">Draw Here</p>
+      <canvas id="handwritingCanvas" width="400" height="340"></canvas>
+      <button class="glass-morphism1" onclick="recognizeLetter()">Submit</button>
+      <button class="glass-morphism1" onclick="clearCanvas()">Clear</button>
+    </div>
+  </div>
+
+  <!-- Modal -->
+  <div id="myModal" class="modal">
+    <div class="modal-content">
+      <img id="modalImage" src="" alt="Modal Image" style="max-width: 100%; height: 50vh;">
+      <button id="nextButton" onclick="closeModal()">Close</button>
+    </div>
+  </div>
+  
+
+  <script type="text/javascript" src="/script/handwriting.canvas.js"></script>
+  <script>
+     // Function to play audio
+  function playAudio(src) {
+    var audio = new Audio(src);
+    audio.play();
+  }
+
+    var handwritingCanvas = new handwriting.Canvas(
+      document.getElementById("handwritingCanvas")
+    );   
+
+    handwritingCanvas.setCallBack(function (data, err) {
+      var drawHereText = document.getElementById("drawHereText");
+      if (err) {
+        console.error(err);
+      } else {
+        if (data[0] === "A") {
+          document.getElementById("correct").innerHTML = "Correct!";
+          document.getElementById("modalImage").src = "/src/corr.gif";
+          // playAudio("src/yay.mp3");
+          // first get the correct variable from local storage
+          var correct = localStorage.getItem("correct") || 0;
+          var incorrect = localStorage.getItem("incorrect") || 0;
+          console.log(correct);
+          correct++;
+          console.log(correct);
+          localStorage.setItem("correct", correct);
+          localStorage.setItem("incorrect", incorrect);
+          openModal();
+          playAudio("/src/yay-6326.mp3");
+        } else {
+          document.getElementById("incorrect").innerHTML = "Incorrect!";
+          document.getElementById("modalImage").src = "/src/wrong.gif";
+          // play the wrong answer audio here
+          var correct = localStorage.getItem("correct") || 0;
+          var incorrect = localStorage.getItem("incorrect") || 0;
+          incorrect++;
+          // store it in local stpraage
+          localStorage.setItem("correct", correct);
+          localStorage.setItem("incorrect", incorrect);
+          openModal();
+          playAudio("/src/wah.mp3");
+        }
+        drawHereText.style.display = "none";
+        console.log("Recognized result:", data);
+      }
+    });
+
+    handwritingCanvas.setOptions({
+      language: "en",
+      numOfReturn: 1,
+    });
+
+    function recognizeLetter() {
+      handwritingCanvas.recognize();
+    }
+
+    function clearCanvas() {
+      handwritingCanvas.erase();
+      document.getElementById("correct").innerHTML = "";
+      document.getElementById("incorrect").innerHTML = "";
+      document.getElementById("drawHereText").style.display = "block";
+    }
+
+    // Modal functions
+    function openModal() {
+      var modal = document.getElementById("myModal");
+      modal.style.display = "block";
+    }
+
+    function closeModal() {
+      var modal = document.getElementById("myModal");
+      modal.style.display = "none";
+    }
+
+    // Close modal when clicking outside modal content
+    window.onclick = function(event) {
+      var modal = document.getElementById("myModal");
+      if (event.target == modal) {
+        modal.style.display = "none";
+      }
+    }
+  </script>
+
+<script>
+  // Function to retrieve user session information from localStorage
+  function getUser() {
+      return JSON.parse(localStorage.getItem("user"));
+  }
+
+  // Function to update user session information in localStorage
+  function setUser(user) {
+      localStorage.setItem("user", JSON.stringify(user));
+  }
+
+  // Function to initialize user session information if it doesn't exist
+  function initializeUser() {
+      if (!getUser()) {
+          setUser({ email: "", correctCount: 0, incorrectCount: 0 });
+      }
+  }
+
+  // Retrieve user session information from localStorage
+  initializeUser();
+  const user = getUser();
+
+  // Example: Display user's email
+  if (user.email) {
+      console.log("User's email:", user.email);
+  } else {
+      console.log("User not logged in.");
+  }
+
+  // Function to update counts and navigate to statistics page
+  function updateStatsAndNavigate(correct, incorrect) {
+      // Update counts in user session information
+      user.correctCount += correct;
+      user.incorrectCount += incorrect;
+
+      // Save updated user session information in localStorage
+      setUser(user);
+
+      // Display the counts
+      console.log("Correct count:", user.correctCount);
+      console.log("Incorrect count:", user.incorrectCount);
+
+      // Navigate to statistics page
+      window.location.href = "statistics.html";
+  }
+</script>
+
+
+<script>
+  // Function to update counts and navigate to statistics page
+  function updateStatsAndNavigate(correct, incorrect) {
+    // display the counts
+    console.log("Correct count:", correct);
+    console.log("Incorrect count:", incorrect);
+    // navigate to statistics page
+    window.location.href = "statistics.html";
+   
+  }
+</script>
+</body>
+</html>
+

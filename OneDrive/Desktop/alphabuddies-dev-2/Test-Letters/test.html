@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Learnify Alpha</title>
+  <link rel="icon" href="/src/favicon.png">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  <link rel="stylesheet" href="/src/style.css" />
+  <script src="https://kit.fontawesome.com/1510e22962.js" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="/style/output.css">
+  <script src="./node_modules/flowbite/dist/flowbite.min.js"></script>
+
+  <style>
+    /* Style for modal */
+    .modal-container {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: rgba(255, 255, 255, 0.9);
+      padding: 20px;
+      border-radius: 10px;
+      z-index: 1000;
+      text-align: center;
+    }
+
+    .modal-content {
+      background-color: white;
+      padding: 20px;
+      border-radius: 10px;
+    }
+  </style>
+</head>
+<body>
+  <nav class="w-full morphnav bg-[#C78FF3] p-4 h-[80px]">
+    <div class="flex flex-col mx-auto">
+      <div class="flex py-2 justify-between my-auto">
+        <h1 class="font-bold text-3xl text-black mt-4 text-left">AlphaBuddies</h1>
+        <a class="mb-4" href="/home.html">
+          <i class="fa-solid fa-house fa-xl"></i>
+        </a>
+      </div>
+    </div>
+  </nav>
+  <div class="flex flex-col items-center mx-auto justify-center my-10">
+    <h3>Guess the alphabet</h3>
+    <button onclick="pronounceLetter('Ae')" class="w-16 h-16">
+      <img src="/src/music2.gif" alt="music" class="img w-10 h-10" />
+    </button>
+  </div>
+
+  <div class="mt-16 grid-cols-2 grid gap-4 w-[90%] sm:w-[60%] justify-center mx-auto">
+    <button class="text-center morph3 bg-[#FFD18B] p-4 rounded-lg" onclick="showModal('A')">A</button>
+    <button class="text-center morph1 bg-[#FFA5B8] p-4 rounded-lg" onclick="showModal('B')">B</button>
+    <button class="text-center morph2 bg-[#73DBD5] p-4 rounded-lg" onclick="showModal('C')">C</button>
+    <button class="text-center morph4 bg-[#5e38b9] p-4 rounded-lg" onclick="showModal('D')">D</button>
+  </div>
+
+  <!-- Modal HTML -->
+  <div id="modal-container" class="modal-container">
+    <div id="modal-content" class="modal-content">
+        <span id="modal-message"></span><br>
+        <img id="modal-image" src="" alt="Modal Image"><br>
+        <button onclick="closeModal()">Close</button>
+        <button onclick="window.location.href = 'testb.html';">Next</button>
+    </div>
+</div>
+
+
+
+  <script>
+    
+    function showModal(letter) {
+      var modalContainer = document.getElementById('modal-container');
+      var modalContent = document.getElementById('modal-content');
+      var modalMessage = document.getElementById('modal-message');
+      var modalImage = document.getElementById('modal-image');
+
+      // Show modal with different content based on clicked button
+      if (letter === 'A') {
+        modalMessage.textContent = 'Correct answer';
+        modalImage.src = '/src/corr.gif';
+      } else {
+        modalMessage.textContent = 'Wrong answer';
+        modalImage.src = '/src/wrong.gif';
+      }
+
+      // Show modal
+      modalContainer.style.display = 'block';
+    }
+
+    function closeModal() {
+      var modalContainer = document.getElementById('modal-container');
+
+      // Hide modal
+      modalContainer.style.display = 'none';
+    }
+  </script>
+  <script>
+    function pronounceLetter(letter) {
+      // Create a new instance of SpeechSynthesisUtterance
+      var utterance = new SpeechSynthesisUtterance(letter);
+      // Set the voice for pronunciation, if needed
+      // utterance.voice = speechSynthesis.getVoices()[0]; // Example voice selection
+      // Speak the letter
+      window.speechSynthesis.speak(utterance);
+    }
+  </script>
+  
+</body>
+</html>

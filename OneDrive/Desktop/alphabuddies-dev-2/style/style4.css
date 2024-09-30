@@ -1,0 +1,87 @@
+body {
+    background-image: url("src/bg.png");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    margin: 0;
+    font-family: "Arial", sans-serif;
+}
+
+.container {
+    margin: 20px 20px 5px; /* Combine margins into one line */
+}
+
+.back-icon {
+    margin-top: 20px;
+    margin-left: 20px;
+    font-size: 30px;
+    color: #fff;
+}
+
+.row {
+    display: flex;
+    justify-content: center;
+}
+
+/* .card {
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    padding: 30px;
+    margin: 20px;
+    text-align: center;
+    box-sizing: border-box;
+    width: 450px;
+    max-height: 420px;
+    overflow: auto;
+} */
+
+/* .card-1 {
+    background-color: rgba(255, 255, 255, 0.95);
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    padding: 30px;
+    margin: 20px;
+    text-align: center;
+    box-sizing: border-box;
+    width: 400px;
+    height: 420px;
+    overflow: auto;
+} */
+
+
+
+.card-1 p {
+    font-size: 200px;
+    font-weight: bold;
+    font-family: 'Baloo Thambi 2', cursive;
+    text-align: center;
+    color: #054a68;
+    margin: 20px 0;
+}
+
+
+
+
+/* add style for this
+    <p id="correct"></p>
+    <p id="incorrect"></p> */
+
+#correct {
+    color: green;
+    font-size: 20px;
+    font-weight: bold;
+    margin: 0px;
+}
+#incorrect {
+    color: red;
+    font-size: 20px;
+    font-weight: bold;
+    margin: 0px;
+}
+
+#drawHereText{
+    font-size: 20px;
+    font-weight: bold;
+    margin: 0px;
+}

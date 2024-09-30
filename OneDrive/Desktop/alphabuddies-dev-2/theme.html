@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script
+      src="https://kit.fontawesome.com/1510e22962.js"
+      crossorigin="anonymous"
+    ></script>
+    <title>AlphaBuddies</title>
+    <link rel="stylesheet" href="src/output.css" />
+    <style>
+      body {
+        margin: 0;
+        font-family: "Arial", sans-serif;
+        overflow: hidden;
+      }
+
+      nav {
+        background-color: rgba(25, 1, 43, 0.8);
+        backdrop-filter: blur(10px);
+      }
+
+      .container {
+        padding-left: 10%;
+        padding-right: 10%;
+        display: flex;
+        justify-content: space-between;
+        margin-top:8%
+       
+      }
+
+      .card {
+        background-color: #ffffff;
+        width: 45%; /* Adjust the width of the cards */
+        padding: 20px;
+        margin-bottom: 20px; /* Adjust the margin-bottom to create space between cards */
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        display: flex;
+        flex-direction: column;
+        align-items: center; /* Center align items horizontally */
+        border-radius: 10px; /* Make the border edges round */
+        border: 2px solid #0583d2; /* Add border color */
+      }
+
+      .card img {
+        max-width: 100%;
+        height: 250px; /* Increase the height of the images */
+        margin-bottom: 10px;
+        align-self: center; /* Center align image within its parent */
+      }
+
+      .card h2 {
+        text-align: center; /* Center align text */
+        color: #0583d2; /* Change the text color */
+        font-size: 24px; /* Adjust the font size */
+        font-weight: 600;
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="w-full morphnav bg-[#C78FF3] p-4 h-[80px]">
+      <div class="flex flex-col mx-auto">
+        <div class="flex py-2 justify-between my-auto">
+          <p><i class="fa-solid fa-arrow-down-a-z"></i></p>
+          <h1 class="font-bold text-3xl text-black mt-4 text-left">
+            AlphaBuddies
+          </h1>
+          <a class="mb-4" href="/settings.html">
+            <i class="fa-solid fa-gear fa-xl"></i>
+          </a>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container">
+      <div class="card">
+        <img src="src/waving-pikachu.gif" alt="Image 1" />
+        <h2>Pokemon</h2>
+      </div>
+      <div class="card">
+        <img src="src/doraemon-theme.gif" alt="Image 2" />
+        <h2>Doraemon</h2>
+      </div>
+    </div>
+  </body>
+</html>
