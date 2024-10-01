@@ -42,7 +42,6 @@ Simple Moving Averages (SMA 9 and SMA 21), Exponential Moving Averages (EMA 9 an
 
 The dataset was cleaned to remove rows with NaN values and normalized using min-max normalization. After cleaning and normalizing, the final size of the CSV file for each stock was (1322, 29).
 
----
 
 **Dataset 2**  
 **News & Stock Movement**  
@@ -55,11 +54,6 @@ We restricted the dataset to 2018-2020 to focus on recent trends and align it wi
 ---
 
 ### Work Done So Far
-
-**Technical Indicators used in the dataset include**:  
-Simple Moving Averages (SMA 9 and SMA 21), Exponential Moving Averages (EMA 9 and EMA 21), Double Exponential Moving Averages (DEMA 9 and DEMA 21), MACD (Line and Signal Line), RSI (14), Stochastic Oscillator (K and D), Bollinger Bands (middle, upper, and lower), ADX (ADX, ADX+DI, ADX-DI), CMF (Chaikin Money Flow), OBV (On Balance Volume), CCI (Commodity Channel Index), Williams %R, ATR (Average True Range).
-
-The dataset was cleaned to remove rows with NaN values and normalized using min-max normalization. After cleaning and normalizing, the final size of the CSV file for each stock was (1322, 29).
 
 #### Approach 1: Using Spectrograms
 Spectrograms are visual representations of the frequency spectrum of a signal over time. We generated spectrograms from windowed segments of stock closing prices (30-day window). The generated spectrograms were used as features for predictive modeling using CNN architectures: AlexNet, ResNet, DenseNet, and EfficientNet.
