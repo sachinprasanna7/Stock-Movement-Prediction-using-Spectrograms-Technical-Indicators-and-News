@@ -7,7 +7,7 @@ We propose a novel method for Stock Movement Prediction that utilizes four diffe
 
 ### Methodology
 
-#### A. Methodologies
+#### Methodologies
 1) **Converting Close Data to Spectrograms**:  
    a) Transform historical close data into spectrograms.  
    b) Visualization of patterns and potential reduction of noise.  
@@ -26,6 +26,7 @@ We propose a novel method for Stock Movement Prediction that utilizes four diffe
    a) Employ a neural network to combine features from spectrograms, technical indicators, and general news.  
    b) Leverage the strengths of each data type for more accurate predictions.
 
+![Alt text](https://github.com/sachinprasanna7/Stock-Trend-Prediction/assets/final_method.png)
 
 ---
 
