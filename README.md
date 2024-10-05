@@ -1,82 +1,98 @@
-# Stock Movement Prediction using Spectrograms, Technical Indicators, and News
+## Stock-Trend-Prediction
 
-## Introduction
-This project introduces a novel approach to Stock Movement Prediction by leveraging a combination of techniques to improve predictive accuracy. The solution involves using four distinct models, with the best-performing model selected via a weighted average, where weights are optimized through a Neural Network. The objective is to predict whether a stock will rise or fall on a given day.
-
-## Methodology
-
-### 1. Converting Close Data to Spectrograms
-- **Transformation**: Historical stock close prices are transformed into spectrograms.
-- **Visualization**: This approach helps visualize hidden patterns and potentially reduces noise.
-- **CNN Analysis**: These spectrograms are then analyzed using Convolutional Neural Networks (CNNs) to capture significant features.
-
-### 2. Utilizing Technical Indicators
-- **Integration of Indicators**: A variety of technical indicators are computed and integrated into the model for a deeper understanding of market behavior.
-- **Indicators Used**: Includes SMAs, EMAs, MACD, RSI, Bollinger Bands, ADX, Chaikin Money Flow, and more (details below).
-
-### 3. Incorporating Financial News
-- **News Impact**: Financial news plays a crucial role in influencing stock prices. Sentiment analysis of news articles is incorporated to account for this factor.
-- **Sentiment Analysis**: We employ FinBERT, a model fine-tuned for financial sentiment, to assess the sentiment of financial news and its effect on stock price movement.
-
-### 4. Neural Networks for Feature Combination
-- **Unified Model**: A neural network is used to combine features extracted from spectrograms, technical indicators, and news data. This allows the model to leverage the strengths of each data type for more accurate stock movement predictions.
+### Introduction
+We propose a novel method for Stock Movement Prediction that utilizes four different models. The best model is selected through a weighted average method, where the weights are treated as parameters and optimized using a Neural Network. The proposed model aims to predict whether a stock will rise or fall on a given day.
 
 ---
 
-## Dataset
+### Methodology
 
-### Dataset 1: Stock Prices & Technical Indicators
-- **Scope**: 12 BankNifty stocks from 1 Jan 2017 to 31 Dec 2022.
-- **Technical Indicators**: 
-    - Simple Moving Averages (SMA 9, SMA 21)
-    - Exponential Moving Averages (EMA 9, EMA 21)
-    - MACD (Line, Signal Line)
-    - RSI (14), Bollinger Bands (Upper, Lower, Middle)
-    - ADX, Chaikin Money Flow (CMF), On Balance Volume (OBV)
-    - Average True Range (ATR), and others.
-- **Data Collection**: Data was gathered using `yfinance` and technical indicators were calculated via the `pandas_ta` library.
-- **Data Size**: Each stock's data resulted in a CSV with (1322, 29) dimensions after cleaning and normalization.
+#### A. Methodologies
+1) **Converting Close Data to Spectrograms**:  
+   a) Transform historical close data into spectrograms.  
+   b) Visualization of patterns and potential reduction of noise.  
+   c) Analysis of spectrograms using Convolutional Neural Networks (CNNs).  
 
-### Dataset 2: News & Stock Movement
-- **Scope**: 50,000 financial news articles from Business Standard (2003-2020), focused on the period from 2018 to 2020.
-- **Content**: Extracted features such as named entities, topics, tone, and sentiment using FinBERT for sentiment analysis.
-- **Purpose**: News data helps capture market sentiment that may affect stock trends.
+2) **Utilizing Technical Indicators**:  
+   a) Integrate technical indicators into the analysis to gain additional insights into stock movements.
 
----
+3) **Using Correlations with Related Stocks**:  
+   a) Use rolling correlation to analyze the influence of related stocks in predicting the selected stock's trend.
 
-## Work Done So Far
+4) **Utilizing General News**:  
+   a) Incorporate general news to understand its impact on stock prices.
 
-### Approach 1: Spectrograms
-- **Description**: We generated spectrograms from 30-day windowed segments of stock closing prices. These were input into CNN models such as AlexNet, ResNet, DenseNet, and EfficientNet for prediction.
-- **Results**:
-    - **AlexNet**: 54.12% accuracy
-    - **ResNet**: 54.12% accuracy
-    - **DenseNet**: 45.88% accuracy
-    - **EfficientNet**: 45.88% accuracy
-- **Next Steps**: Explore alternative spectrogram generation methods and adjust hyperparameters to improve accuracy.
-
-### Approach 2: Technical Indicators
-- **Description**: Applied machine learning models using technical indicators as features to predict stock price movements.
-- **Feature Selection**: Utilized Random Forest for feature selection, reducing dimensionality and selecting the top 5 indicators for the final model.
-- **Results**:
-    - **Random Forest**: 50.19% accuracy
-    - **Support Vector Machine (SVM)**: 51.70% accuracy
-    - **Decision Tree**: 50.57% accuracy
-    - **Logistic Regression**: 51.70% accuracy
-    - **Neural Network**: 50.94% accuracy
-- **Next Steps**: Further feature engineering and model optimization.
-
-### Approach 3: Financial News
-- **Description**: We integrated sentiment analysis on financial news articles using FinBERT to capture the sentiment and impact of news on stock prices.
-- **Results**: This approach enhanced the model’s understanding of market sentiment, improving its predictive capabilities.
+5) **Using Neural Networks for Combining Spectrograms, Indicators, and General News**:  
+   a) Employ a neural network to combine features from spectrograms, technical indicators, and general news.  
+   b) Leverage the strengths of each data type for more accurate predictions.
 
 
 ---
 
-## Tools & Libraries
-- **yfinance**: For downloading historical stock data.
-- **pandas_ta**: For calculating technical indicators.
-- **CNN Architectures**: AlexNet, ResNet, DenseNet, EfficientNet.
-- **FinBERT**: For financial sentiment analysis.
+### Dataset
+
+**Dataset 1**  
+We focused on 12 stocks of BankNifty and created a CSV file for each stock along with their technical indicators. The daily stock data from 1 Jan 2017 to 31 December 2022 was used in our study and dataset construction. The dataset was created using the `yfinance` and `pandas_ta` libraries.
+
+- `yfinance`: Easily downloads historical market data from Yahoo Finance.
+- `pandas_ta`: A technical analysis library built on top of Pandas offering a wide range of indicators.
+
+**Technical Indicators used in the dataset include**:  
+Simple Moving Averages (SMA 9 and SMA 21), Exponential Moving Averages (EMA 9 and EMA 21), Double Exponential Moving Averages (DEMA 9 and DEMA 21), MACD (Line and Signal Line), RSI (14), Stochastic Oscillator (K and D), Bollinger Bands (middle, upper, and lower), ADX (ADX, ADX+DI, ADX-DI), CMF (Chaikin Money Flow), OBV (On Balance Volume), CCI (Commodity Channel Index), Williams %R, ATR (Average True Range).
+
+The dataset was cleaned to remove rows with NaN values and normalized using min-max normalization. After cleaning and normalizing, the final size of the CSV file for each stock was (1322, 29).
+
+
+**Dataset 2**  
+**News & Stock Movement**  
+News that impacts Bank Nifty stocks. We collected 50,000 financial news articles from Business Standard (2003-2020).
+
+**Data Focus**  
+We restricted the dataset to 2018-2020 to focus on recent trends and align it with the technical data.
+
 
 ---
+
+### Work Done So Far
+
+#### Approach 1: Using Spectrograms
+Spectrograms are visual representations of the frequency spectrum of a signal over time. We generated spectrograms from windowed segments of stock closing prices (30-day window). The generated spectrograms were used as features for predictive modeling using CNN architectures: AlexNet, ResNet, DenseNet, and EfficientNet.
+
+- **Test Accuracy of CNN Models**:  
+  - AlexNet: 54.12%  
+  - ResNet: 54.12%  
+  - DenseNet: 45.88%  
+  - EfficientNet: 45.88%
+
+To improve accuracy, we plan to explore alternative strategies like adjusting the method of spectrogram generation and altering hyperparameters.
+
+#### Approach 2: Using Technical Indicators
+To predict stock price movements, machine learning techniques were applied using technical indicators as features. Additional steps taken include:
+
+1) **Technical Indicators as Features**:  
+   Mathematical calculations based on historical data were used to predict stock price direction.
+   
+   **Test Accuracy of Machine Learning Models**:  
+   - Random Forest: 50.19%  
+   - Support Vector Machine: 51.70%  
+   - Decision Tree: 50.57%  
+   - Logistic Regression: 51.70%  
+   - Neural Network: 50.94%
+
+2) **Lagging Technical Features**:  
+   Lagging versions of indicators (e.g., 20-day moving average) were introduced to capture past market conditions.
+
+3) **Feature Selection Approach**:  
+   We performed feature selection using the Random Forest method to reduce dataset dimensionality while maintaining high predictive power. The top five indicators were selected for the final model.
+
+   **Test Accuracy of Machine Learning Models**:  
+   - Random Forest: 50.19%  
+   - Support Vector Machine: 51.70%  
+   - Decision Tree: 50.57%  
+   - Logistic Regression: 51.70%  
+   - Neural Network: 50.94%
+
+#### Approach 3: Using News
+News events are known to influence stock price movements. We integrated financial news data from 50,000 news articles sourced from Business Standard, covering the period from 2018 to 2021. Key features extracted from the news include named entities, topics, tone, sentiment, etc.  
+
+We employed the FinBERT sentiment analysis model, which is trained on financial texts, to extract sentiment from the news data, improving the predictive accuracy of our stock movement model.
