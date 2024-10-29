@@ -97,40 +97,55 @@ News events are known to influence stock price movements. We integrated financia
 
 We employed the FinBERT sentiment analysis model, which is trained on financial texts, to extract sentiment from the news data, improving the predictive accuracy of our stock movement model.
 
-Module: Financial News Feature Extraction for Stock Movement Prediction
-Overview
-This module focuses on extracting relevant features from financial news articles to enhance stock movement prediction models. By integrating sentiment analysis and feature extraction, we aim to capture the impact of news events on stock prices.
+# Financial News Feature Extraction for Stock Movement Prediction
 
-Data Collection
-We collected 50,000 financial news articles from Business Standard, covering the period from 2018 to 2021. The dataset includes news headlines, publication dates, and sentiment scores.
+## Overview
+This module focuses on extracting critical features from financial news articles to enhance stock movement prediction models. By combining sentiment analysis with feature extraction, it captures the impact of news events on stock prices.
 
-Data Preprocessing
-The news data was preprocessed to extract relevant features such as named entities, topics, tone, and sentiment. We employed the FinBERT sentiment analysis model, fine-tuned for financial texts, to assess the sentiment of each news article.
+## Data Collection
+- **Source**: Business Standard
+- **Time Period**: 2018 - 2021
+- **Volume**: 50,000 financial news articles
+- **Included Data**: Headlines, publication dates, and sentiment scores
 
-Feature Extraction
-Key features extracted from the news data include:
+## Data Preprocessing
+The preprocessing pipeline extracts relevant features such as named entities, topics, tone, and sentiment. We use the FinBERT model, fine-tuned for financial contexts, to evaluate sentiment for each news article.
 
-Company: The primary company mentioned in the news article.
-Event: The main event or action, categorized into predefined types such as "Merger," "New Product," etc.
-Reason: The reason for the event, categorized into predefined types such as "Market Demand," "Regulatory Requirement," etc.
-Sentiment: The overall sentiment of the news article.
-Integration with Stock Data
-The extracted features are integrated with traditional technical indicators and spectrogram data to create a comprehensive dataset for stock movement prediction. This combined dataset is used to train machine learning models, leveraging the strengths of each data type.
+## Feature Extraction
+The following key features are extracted from the news data:
 
-Explanation of Feature Usefulness for Stock Predictions
-Company
-Why it's useful: Identifying the primary company mentioned in a news article helps in directly linking the news to the stock of that company. This allows for targeted analysis of how specific news impacts the stock price of the mentioned company.
-Event
-Why it's useful: Categorizing the main event or action (e.g., "Merger," "New Product") helps in understanding the nature of the news. Different types of events have varying impacts on stock prices. For example, a merger announcement might lead to a stock price increase, while a product recall might lead to a decrease.
-Reason
-Why it's useful: Understanding the reason behind an event (e.g., "Market Demand," "Regulatory Requirement") provides context that can influence the magnitude and direction of the stock price movement. For instance, a new product launch due to high market demand might be more positively received than one due to regulatory pressure.
-Sentiment
-Why it's useful: The overall sentiment of the news article (positive, negative, neutral) is a direct indicator of market sentiment. Positive news sentiment generally leads to stock price increases, while negative sentiment can lead to decreases. Sentiment analysis helps quantify this impact.
-Example Code Explanation
-The provided code snippet is part of the data preprocessing step where the news data is loaded and filtered to retain only the relevant columns (Title and Date). This is a preliminary step before extracting the key features mentioned above.
+1. **Company**: The primary company mentioned in the news article.
+2. **Event**: The main event or action, categorized into predefined types (e.g., "Merger," "New Product").
+3. **Reason**: The cause of the event, categorized into predefined types (e.g., "Market Demand," "Regulatory Requirement").
+4. **Sentiment**: The overall sentiment of the news article.
 
-Loading Data: The CSV file containing news articles is loaded into a DataFrame.
-Filtering Columns: Only the 'Title' and 'Date' columns are retained, as these are essential for further feature extraction.
-Displaying Data: A specific row's title is printed to verify the data loading process.
-This preprocessing step ensures that the dataset is clean and focused, making it easier to extract the key features that will be used for stock prediction.
+## Integration with Stock Data
+The extracted features are integrated with traditional technical indicators and spectrogram data to build a comprehensive dataset for stock movement prediction. This combined dataset enables machine learning models to leverage multiple data types for improved accuracy.
+
+## Explanation of Feature Usefulness for Stock Predictions
+
+- **Company**
+  - **Why it's useful**: Identifying the primary company in a news article helps directly link the news to that company’s stock. This allows for targeted analysis of news impact on the stock price of the specific company.
+
+- **Event**
+  - **Why it's useful**: Categorizing the main event or action (e.g., "Merger," "New Product") helps to understand the nature of the news. Different event types impact stock prices differently; for example, a merger announcement may lead to a stock price increase, while a product recall might decrease it.
+
+- **Reason**
+  - **Why it's useful**: Understanding the reason behind an event (e.g., "Market Demand," "Regulatory Requirement") provides context that can influence the magnitude and direction of stock price movement. For instance, a new product launch driven by high market demand is generally seen more positively than one due to regulatory pressure.
+
+- **Sentiment**
+  - **Why it's useful**: The overall sentiment of the article (positive, negative, neutral) serves as a direct indicator of market sentiment. Positive sentiment often leads to stock price increases, while negative sentiment can decrease it. Sentiment analysis quantifies this impact.
+
+## Example Code Explanation
+The following code snippet demonstrates part of the data preprocessing step:
+
+1. **Loading Data**: Loads a CSV file containing news articles into a DataFrame.
+2. **Filtering Columns**: Retains only 'Title' and 'Date' columns for focused analysis.
+3. **Displaying Data**: Prints a specific row's title to verify data loading.
+
+This step ensures a clean and streamlined dataset for easier feature extraction, optimizing it for use in stock prediction.
+
+---
+
+This module empowers stock prediction models with financial news insights, transforming raw text data into actionable features that reflect market trends and sentiment.
 
