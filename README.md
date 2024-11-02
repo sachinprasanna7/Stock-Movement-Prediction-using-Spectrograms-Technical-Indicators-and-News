@@ -136,16 +136,35 @@ The extracted features are integrated with traditional technical indicators and 
 - **Sentiment**
   - **Why it's useful**: The overall sentiment of the article (positive, negative, neutral) serves as a direct indicator of market sentiment. Positive sentiment often leads to stock price increases, while negative sentiment can decrease it. Sentiment analysis quantifies this impact.
 
-## Example Code Explanation
-The following code snippet demonstrates part of the data preprocessing step:
+### Module: Financial News Sentiment Integration for Stock Prediction
 
-1. **Loading Data**: Loads a CSV file containing news articles into a DataFrame.
-2. **Filtering Columns**: Retains only 'Title' and 'Date' columns for focused analysis.
-3. **Displaying Data**: Prints a specific row's title to verify data loading.
+#### Overview
+This module integrates financial news sentiment with stock price data to simulate a trading strategy and evaluate its profitability. The goal is to understand how news sentiment can influence stock prices and trading decisions.
 
-This step ensures a clean and streamlined dataset for easier feature extraction, optimizing it for use in stock prediction.
+#### Methodology
 
----
+1. **Data Collection and Preprocessing**
+   - Stock data is collected from CSV files, and financial news articles are filtered to include only those relevant to specific stocks.
+   - The news data is preprocessed to extract sentiment scores, which are then merged with the stock price data based on the date.
 
-This module empowers stock prediction models with financial news insights, transforming raw text data into actionable features that reflect market trends and sentiment.
+2. **Trading Strategy Implementation**
+   - A simple trading strategy is defined based on the sentiment of the news articles:
+     - **Positive Sentiment**: Buy shares if the sentiment is positive and there is available cash.
+     - **Negative Sentiment**: Sell all shares if the sentiment is negative.
+   - The strategy is applied over the period covered by the data to simulate trading decisions.
+
+3. **Profit Calculation**
+   - The final amount and profit are calculated after applying the trading strategy, providing a measure of the strategy's effectiveness.
+
+4. **Results Visualization**
+   - The profits for each stock are plotted, with green bars indicating positive profits and red bars indicating negative profits. This visualization helps in assessing the impact of news sentiment on stock performance.
+
+#### Significance
+- **Sentiment Analysis Integration**: By incorporating sentiment analysis from financial news, this module captures the impact of news events on stock prices, providing a more comprehensive view of market conditions.
+- **Explainable Trading Strategy**: The straightforward and interpretable trading strategy based on sentiment makes it easier to understand the decision-making process.
+- **Profit Evaluation**: The final profit calculation and visualization help in assessing the effectiveness of the sentiment-based trading strategy, offering insights into which stocks are more influenced by news sentiment.
+- **Data-Driven Decisions**: The integration of news sentiment with stock data allows for data-driven trading decisions, potentially leading to better investment outcomes.
+
+This module demonstrates the value of combining financial news with traditional stock data to enhance predictive models and trading strategies.
+
 
