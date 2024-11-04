@@ -93,23 +93,25 @@ To predict stock price movements, machine learning techniques were applied using
    - Neural Network: 50.94%
 
 #### Approach 3: Using News
-News events are known to influence stock price movements. We integrated financial news data from 50,000 news articles sourced from Business Standard, covering the period from 2018 to 2021. Key features extracted from the news include named entities, topics, tone, sentiment, etc.  
+
+News events are known to influence stock price movements. We integrated financial news data from 5000 news articles sourced from Business Standard, covering the period from 2018 to 2021. Key features extracted from the news include named entities, topics, tone, sentiment, etc.  
 
 We employed the FinBERT sentiment analysis model, which is trained on financial texts, to extract sentiment from the news data, improving the predictive accuracy of our stock movement model.
 
 # Financial News Feature Extraction for Stock Movement Prediction
 
 ## Overview
+
 This module focuses on extracting critical features from financial news articles to enhance stock movement prediction models. By combining sentiment analysis with feature extraction, it captures the impact of news events on stock prices.
 
 ## Data Collection
 - **Source**: Business Standard
 - **Time Period**: 2018 - 2021
-- **Volume**: 50,000 financial news articles
+- **Volume**: 5000 financial news articles
 - **Included Data**: Headlines, publication dates, and sentiment scores
 
 ## Data Preprocessing
-The preprocessing pipeline extracts relevant features such as named entities, topics, tone, and sentiment. We use the FinBERT model, fine-tuned for financial contexts, to evaluate sentiment for each news article.
+The preprocessing pipeline extracts relevant features such as named entities, topics, tone, and sentiment. Extracting these features is tricky due to the unstructured nature of news articles. Due to this reason, we employed an LLM based extraction approach. We tested a sample of the data on the GPT-4o model which is the current state of the art in language models. The model was able to extract the features with great accuracy. But due to expensive token costs, we had to shift to Google's Gemini model which is also capable of extracting the features with good accuracy.
 
 ## Feature Extraction
 The following key features are extracted from the news data:
@@ -119,10 +121,33 @@ The following key features are extracted from the news data:
 3. **Reason**: The cause of the event, categorized into predefined types (e.g., "Market Demand," "Regulatory Requirement").
 4. **Sentiment**: The overall sentiment of the news article.
 
-## Integration with Stock Data
-The extracted features are integrated with traditional technical indicators and spectrogram data to build a comprehensive dataset for stock movement prediction. This combined dataset enables machine learning models to leverage multiple data types for improved accuracy.
+The prompt used to extract these features is given below:
+
+```
+"Analyze the following financial news headline: {news}."
+
+    Based on this headline, extract the following structured information as a tuple, choosing each feature from its predefined categories:
+
+    1. **Company**: Identify the primary company mentioned"
+    2. **Event**: Identify the main event or action, choosing from: "Merger," "New Product," "Profit/Loss Announcement," "Partnership/Collaboration," "Policy Change."
+    3. **Reason**: Identify the reason for the event, choosing from: "Market Demand," "Regulatory Requirement," "Internal Strategy," "External Competition," "Economic Conditions."
+    4. **Verdict**: Assess the likely impact on stock, choosing from: "UP," "DOWN," "NEUTRAL."
+
+    NOTE: give categories from the categories provided in the prompt. DO NOT EXPLAIN THE CATEGORIES or output. Also, try to reason out the answer based on the headline see if the news might have any impact on the stock price of the company mentioned in the headline. DO NOT OUTPUT ANYTHING ELSE OTHER THEN THE TUPLE. DO NOT SAY - " Here's the structured information extracted from the headlines:"
+
+    **Return the information in tuple format** only and nothing else using the example format below:
+
+    Example format:
+    `("Company", "Event", "Reason", "Verdict")`
+
+        """
+   ```
+
+
 
 ## Explanation of Feature Usefulness for Stock Predictions
+
+The extracted features help us understand the context and impact of news events on stock prices. The reason behind choosing these features is as follows:
 
 - **Company**
   - **Why it's useful**: Identifying the primary company in a news article helps directly link the news to that company’s stock. This allows for targeted analysis of news impact on the stock price of the specific company.
@@ -136,35 +161,160 @@ The extracted features are integrated with traditional technical indicators and 
 - **Sentiment**
   - **Why it's useful**: The overall sentiment of the article (positive, negative, neutral) serves as a direct indicator of market sentiment. Positive sentiment often leads to stock price increases, while negative sentiment can decrease it. Sentiment analysis quantifies this impact.
 
-### Module: Financial News Sentiment Integration for Stock Prediction
+## Evaluation of the Impact of News Features on Stock Movement Prediction through trading strategy
 
-#### Overview
-This module integrates financial news sentiment with stock price data to simulate a trading strategy and evaluate its profitability. The goal is to understand how news sentiment can influence stock prices and trading decisions.
+In order to evaluation the effect of sentiment on the Bank Nifty stocks, we will use the sentiment extracted from the news articles to create a trading strategy. The strategy will be based on the sentiment of the news articles and the stock movement on the same day. We will backtest the strategy on the historical data to evaluate its performance.
 
-#### Methodology
+```
 
-1. **Data Collection and Preprocessing**
-   - Stock data is collected from CSV files, and financial news articles are filtered to include only those relevant to specific stocks.
-   - The news data is preprocessed to extract sentiment scores, which are then merged with the stock price data based on the date.
+def trading_strategy(row, amount, shares):
+        if row['Sentiment'] == 'Positive' and amount > 0:
+            # Buy shares
+            shares_to_buy = amount / row['Close']
+            amount -= shares_to_buy * row['Close']
+            shares += shares_to_buy
+        elif row['Sentiment'] == 'Negative' and shares > 0:
+            # Sell shares
+            amount += shares * row['Close']
+            shares = 0
+        return amount, shares
 
-2. **Trading Strategy Implementation**
-   - A simple trading strategy is defined based on the sentiment of the news articles:
-     - **Positive Sentiment**: Buy shares if the sentiment is positive and there is available cash.
-     - **Negative Sentiment**: Sell all shares if the sentiment is negative.
-   - The strategy is applied over the period covered by the data to simulate trading decisions.
+    # Apply the trading strategy over the period
+    for index, row in merged_df.iterrows():
+        amount, shares = trading_strategy(row, amount, shares)
+```
 
-3. **Profit Calculation**
-   - The final amount and profit are calculated after applying the trading strategy, providing a measure of the strategy's effectiveness.
-
-4. **Results Visualization**
-   - The profits for each stock are plotted, with green bars indicating positive profits and red bars indicating negative profits. This visualization helps in assessing the impact of news sentiment on stock performance.
-
-#### Significance
-- **Sentiment Analysis Integration**: By incorporating sentiment analysis from financial news, this module captures the impact of news events on stock prices, providing a more comprehensive view of market conditions.
-- **Explainable Trading Strategy**: The straightforward and interpretable trading strategy based on sentiment makes it easier to understand the decision-making process.
-- **Profit Evaluation**: The final profit calculation and visualization help in assessing the effectiveness of the sentiment-based trading strategy, offering insights into which stocks are more influenced by news sentiment.
-- **Data-Driven Decisions**: The integration of news sentiment with stock data allows for data-driven trading decisions, potentially leading to better investment outcomes.
-
-This module demonstrates the value of combining financial news with traditional stock data to enhance predictive models and trading strategies.
+On running this strategy, we found out that the strategy was profitable on KOtak, sbi, federal, axis, idfc banks, while it was not profitable on the rest
 
 
+
+
+
+\subsection{Financial News Extraction}
+
+\subsubsection{Overview}
+
+This module focuses on extracting critical features from financial news articles to enhance stock movement prediction models. By combining sentiment analysis with feature extraction, it captures the impact of news events on stock prices.
+
+\subsubsection{Data Collection}
+\begin{itemize}
+    \item \textbf{Source}: Business Standard
+    \item \textbf{Time Period}: 2018 - 2021
+    \item \textbf{Volume}: 5000 financial news articles
+    \item \textbf{Included Data}: Headlines, publication dates, and sentiment scores
+\end{itemize}
+
+\subsubsection{Data Preprocessing}
+The preprocessing pipeline extracts relevant features such as named entities, topics, tone, and sentiment. Extracting these features is challenging due to the unstructured nature of news articles. To address this, we employed a large language model (LLM)-based extraction approach. A sample of the data was tested on the GPT-4 model, known for its state-of-the-art accuracy. However, due to token cost constraints, we shifted to Google's Gemini model, which also provided accurate feature extraction.
+
+\subsubsection{Feature Extraction}
+The following key features are extracted from the news data:
+
+\begin{enumerate}
+    \item \textbf{Company}: The primary company mentioned in the news article.
+    \item \textbf{Event}: The main event or action, categorized into predefined types (e.g., "Merger," "New Product").
+    \item \textbf{Reason}: The cause of the event, categorized into predefined types (e.g., "Market Demand," "Regulatory Requirement").
+    \item \textbf{Sentiment}: The overall sentiment of the news article.
+\end{enumerate}
+
+The prompt used to extract these features is as follows:
+
+\begin{verbatim}
+"Analyze the following financial news headline: {news}."
+
+Based on this headline, extract the following structured information as a tuple, choosing each feature from its predefined categories:
+
+1. **Company**: Identify the primary company mentioned.
+2. **Event**: Identify the main event or action, choosing from: "Merger," "New Product," "Profit/Loss Announcement," "Partnership/Collaboration," "Policy Change."
+3. **Reason**: Identify the reason for the event, choosing from: "Market Demand," "Regulatory Requirement," "Internal Strategy," "External Competition," "Economic Conditions."
+4. **Verdict**: Assess the likely impact on stock, choosing from: "UP," "DOWN," "NEUTRAL."
+
+NOTE: give categories from the categories provided in the prompt. DO NOT EXPLAIN THE CATEGORIES or output. Also, try to reason out the answer based on the headline to see if the news might have any impact on the stock price of the company mentioned in the headline. DO NOT OUTPUT ANYTHING ELSE OTHER THAN THE TUPLE.
+
+**Return the information in tuple format** only and nothing else using the example format below:
+
+Example format:
+`("Company", "Event", "Reason", "Verdict")`
+\end{verbatim}
+
+\subsubsection{Explanation of Feature Usefulness for Stock Predictions}
+
+\begin{itemize}
+    \item \textbf{Company}
+    \begin{itemize}
+        \item \textit{Why it's useful}: Identifying the primary company in a news article helps directly link the news to that company’s stock. This allows for targeted analysis of news impact on the stock price of the specific company.
+    \end{itemize}
+
+    \item \textbf{Event}
+    \begin{itemize}
+        \item \textit{Why it's useful}: Categorizing the main event or action (e.g., "Merger," "New Product") helps to understand the nature of the news. Different event types impact stock prices differently; for example, a merger announcement may lead to a stock price increase, while a product recall might decrease it.
+    \end{itemize}
+
+    \item \textbf{Reason}
+    \begin{itemize}
+        \item \textit{Why it's useful}: Understanding the reason behind an event (e.g., "Market Demand," "Regulatory Requirement") provides context that can influence the magnitude and direction of stock price movement. For instance, a new product launch driven by high market demand is generally seen more positively than one due to regulatory pressure.
+    \end{itemize}
+
+    \item \textbf{Sentiment}
+    \begin{itemize}
+        \item \textit{Why it's useful}: The overall sentiment of the article (positive, negative, neutral) serves as a direct indicator of market sentiment. Positive sentiment often leads to stock price increases, while negative sentiment can decrease it. Sentiment analysis quantifies this impact.
+    \end{itemize}
+\end{itemize}
+
+
+
+\subsection{Evaluation of the Impact of News Features on Stock Movement Prediction through Trading Strategy}
+
+In order to evaluate the effect of sentiment on the Bank Nifty stocks, we use the sentiment extracted from news articles to create a trading strategy. The strategy is based on the sentiment of the news articles and the stock movement on the same day. We backtest the strategy on historical data to assess its performance.
+
+\subsubsection{Trading Strategy Algorithm}
+
+Let:
+\begin{itemize}
+    \item \( \text{Sentiment}_t \) be the sentiment score (Positive, Negative, Neutral) for day \( t \).
+    \item \( \text{Close}_t \) be the closing stock price on day \( t \).
+    \item \( \text{Amount}_t \) be the cash available on day \( t \).
+    \item \( \text{Shares}_t \) be the number of shares held at the end of day \( t \).
+\end{itemize}
+
+The trading strategy is defined as follows:
+
+1. **Initial Conditions:**
+   \[
+   \text{Amount}_0 = \text{initial investment amount}
+   \]
+   \[
+   \text{Shares}_0 = 0
+   \]
+
+2. **Daily Trading Decision:**
+   For each trading day \( t \):
+   
+   \begin{itemize}
+       \item **If** \( \text{Sentiment}_t = \text{Positive} \) and \( \text{Amount}_{t-1} > 0 \):
+           \begin{align*}
+           \text{Shares Bought}_t &= \frac{\text{Amount}_{t-1}}{\text{Close}_t} \\
+           \text{Amount}_t &= \text{Amount}_{t-1} - (\text{Shares Bought}_t \times \text{Close}_t) \\
+           \text{Shares}_t &= \text{Shares}_{t-1} + \text{Shares Bought}_t
+           \end{align*}
+
+       \item **If** \( \text{Sentiment}_t = \text{Negative} \) and \( \text{Shares}_{t-1} > 0 \):
+           \begin{align*}
+           \text{Amount}_t &= \text{Amount}_{t-1} + (\text{Shares}_{t-1} \times \text{Close}_t) \\
+           \text{Shares}_t &= 0
+           \end{align*}
+       
+       \item **Otherwise**:
+           \begin{align*}
+           \text{Amount}_t &= \text{Amount}_{t-1} \\
+           \text{Shares}_t &= \text{Shares}_{t-1}
+           \end{align*}
+   \end{itemize}
+
+3. **Final Outcome**: 
+   The total portfolio value at the end of the period \( T \) is:
+   \[
+   \text{Portfolio Value} = \text{Amount}_T + (\text{Shares}_T \times \text{Close}_T)
+   \]
+
+After running this strategy, we observed that it was profitable for Kotak, SBI, Federal, Axis, and IDFC banks, but not profitable for the other banks.
